@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hazem – Staff Software Quality Engineer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    :root {
+        --bg: #f4f6f9;
+        --card-bg: #ffffff;
+        --text: #111827;
+        --muted: #4b5563;
+        --primary: #2563eb;
+        --header-bg: #1f2937;
+        --shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    body.dark {
+        --bg: #020617;
+        --card-bg: #020617;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --primary: #60a5fa;
+        --header-bg: #020617;
+        --shadow: 0 2px 10px rgba(15,23,42,0.9);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1100px;
+        margin: auto;
+        padding: 20px 0 40px;
+    }
+
+    header {
+        background: var(--header-bg);
+        color: white;
+        padding: 30px 20px 25px;
+        border-radius: 16px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+    header::after {
+        content: "";
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        border: 1px solid rgba(148,163,184,0.3);
+        right: -60px;
+        top: -60px;
+        opacity: 0.4;
+    }
+
+    .profile-pic {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 3px solid rgba(148,163,184,0.7);
+        object-fit: cover;
+        box-shadow: 0 0 0 4px rgba(15,23,42,0.7);
+        flex-shrink: 0;
+    }
+
+    .header-text h1 {
+        margin: 0 0 5px;
+        font-size: 28px;
+    }
+
+    .header-text p {
+        margin: 0;
+        color: #e5e7eb;
+        font-size: 14px;
+    }
+
+    .header-actions {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .btn {
+        border-radius: 999px;
+        padding: 7px 14px;
+        font-size: 13px;
+        border: 1px solid rgba(148,163,184,0.6);
+        background: rgba(15,23,42,0.6);
+        color: #e5e7eb;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: background 0.2s ease, transform 0.1s ease, border 0.2s ease;
+    }
+
+    .btn.primary {
+        border-color: transparent;
+        background: linear-gradient(135deg, #2563eb, #4f46e5);
+    }
+
+    .btn:hover {
+        transform: translateY(-1px);
+        background: rgba(15,23,42,0.9);
+    }
+
+    .btn.primary:hover {
+        background: linear-gradient(135deg, #1d4ed8, #4338ca);
+    }
+
+    .toggle-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 12px;
+        padding: 5px 10px;
+        background: rgba(15,23,42,0.7);
+        border-radius: 999px;
+        border: 1px solid rgba(148,163,184,0.6);
+        cursor: pointer;
+        color: #e5e7eb;
+    }
+
+    h2 {
+        color: var(--text);
+        border-left: 5px solid var(--primary);
+        padding-left: 10px;
+        margin-top: 0;
+        font-size: 20px;
+    }
+
+    h3 {
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    .section {
+        background: var(--card-bg);
+        padding: 20px;
+        margin-bottom: 25px;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        animation: fadeInUp 0.5s ease forwards;
+        opacity: 0;
+    }
+
+    .section:nth-child(1) { animation-delay: 0.05s; }
+    .section:nth-child(2) { animation-delay: 0.1s; }
+    .section:nth-child(3) { animation-delay: 0.15s; }
+    .section:nth-child(4) { animation-delay: 0.2s; }
+    .section:nth-child(5) { animation-delay: 0.25s; }
+    .section:nth-child(6) { animation-delay: 0.3s; }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    ul { margin: 10px 0 0 20px; padding: 0; }
+    li { margin-bottom: 6px; }
+
+    .muted {
+        color: var(--muted);
+        font-size: 14px;
+    }
+
+    .job-title {
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 15px;
+    }
+
+    .date {
+        float: right;
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+    .project-list li {
+        margin-bottom: 4px;
+    }
+
+    /* Timeline */
+    .timeline {
+        position: relative;
+        margin-left: 10px;
+        padding-left: 20px;
+        border-left: 2px solid rgba(148,163,184,0.6);
+    }
+
+    .timeline-item {
+        margin-bottom: 18px;
+        position: relative;
+        padding-left: 10px;
+    }
+
+    .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -12px;
+        top: 4px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--primary);
+        box-shadow: 0 0 0 4px rgba(37,99,235,0.25);
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: rgba(37,99,235,0.08);
+        color: var(--primary);
+        font-size: 11px;
+        margin-left: 6px;
+    }
+
+    /* Contact & Social */
+    .contact-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        font-size: 14px;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+    }
+
+    .contact-item span.icon {
+        width: 20px;
+        text-align: center;
+    }
+
+    a {
+        color: var(--primary);
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+        header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .profile-pic {
+            width: 90px;
+            height: 90px;
+        }
+        .date {
+            float: none;
+            display: block;
+            margin-top: 3px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+     <img src="Hazem2.png" alt="Hazem Profile" class="profile-pic">
+    <div class="header-text">
+        <h1>Hazem</h1>
+        <p>Staff Software Quality Engineer & Quality Lead — Automation, API Testing & Gen AI‑Driven QA</p>
+        <div class="header-actions">
+            <button class="btn primary" onclick="downloadCV()">⬇ Download PDF</button>
+            <a class="btn" href="#contact">Contact</a>
+            <a class="btn" href="#projects">Projects Timeline</a>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- SUMMARY -->
+    <div class="section">
+        <h2>Professional Summary</h2>
+        <p>
+            ISTQB‑certified Staff Software Quality Engineer & Quality Lead with 15+ years of experience driving end‑to‑end QA practices 
+            across major Saudi national platforms. Skilled in QA leadership, quality governance, and release readiness for large‑scale systems. 
+            Strong background in Playwright, Robot Framework, API Testing, SQL, and integrating Gen AI & AI Agents to enhance testing efficiency 
+            and accelerate engineering outcomes.
+        </p>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="section">
+        <h2>Core Skills</h2>
+
+        <h3>Technical Skills</h3>
+        <ul>
+            <li>Testing Types: Functional, Integration, Regression, UAT, Exploratory, Smoke</li>
+            <li>Automation: Playwright (JavaScript), Robot Framework (Python)</li>
+            <li>API Testing: Postman, API Test Automation</li>
+            <li>Databases: SQL Server, Oracle 11g</li>
+            <li>ALM Tools: Azure DevOps, JIRA, TFS, MTM</li>
+            <li>Gen AI in QA: AI Agents, AI‑Driven Automation Workflows</li>
+        </ul>
+
+        <h3>Leadership & QA Practice</h3>
+        <ul>
+            <li>QA Practice Leadership, Quality Governance & Release Quality Ownership</li>
+            <li>Risk‑Based Testing, Automation Strategy & Continuous Improvement</li>
+            <li>Cross‑Team Collaboration with Product, Business & Engineering</li>
+            <li>Mentoring QA Engineers & Knowledge Sharing</li>
+        </ul>
+    </div>
+
+    <!-- RESPONSIBILITIES -->
+    <div class="section">
+        <h2>Roles & Responsibilities</h2>
+        <ul>
+            <li>Leading QA practices and establishing quality standards across teams.</li>
+            <li>Defining and governing QA processes, workflows, and testing guidelines.</li>
+            <li>Owning release quality and supporting high‑reliability production deployments.</li>
+            <li>Applying risk‑based testing to prioritize coverage based on business impact.</li>
+            <li>Guiding automation strategy and aligning coverage with product architecture.</li>
+            <li>Driving continuous improvement in testing efficiency and engineering outcomes.</li>
+            <li>Executing manual, MTM‑based, and automation‑driven test suites.</li>
+            <li>Performing advanced testing: regression, exploratory, smoke, confirmation.</li>
+            <li>Validating backend and data integrity using SQL on SQL Server & Oracle.</li>
+            <li>Leveraging Gen AI & AI Agents to optimize QA workflows and test design.</li>
+            <li>Reviewing SRS/HLD, designing high‑coverage test cases, and maintaining RTM.</li>
+            <li>Preparing status reports and release readiness reports within Agile environments.</li>
+        </ul>
+    </div>
+
+    <!-- PROJECT EXPERIENCE / TIMELINE -->
+    <div class="section" id="projects">
+        <h2>Project Experience Timeline</h2>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <div class="job-title">
+                    Staff Quality Control Engineer – Thiqah Business Services
+                    <span class="date">Oct 2024 – May 2026</span>
+                </div>
+                <div class="muted">Key National Platforms <span class="badge">Staff</span></div>
+                <ul class="project-list">
+                    <li>Ministry of Energy – Oil & Gas Measurement</li>
+                    <li>MAAS Riyadh – Darb (Public Transport Platform)</li>
+                    <li>Global Certificate of Origin – SA</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="job-title">
+                    QA Team Leader – Thiqah Business Services
+                    <span class="date">Sep 2022 – Oct 2024</span>
+                </div>
+                <div class="muted">Team Leadership & National Services <span class="badge">Lead</span></div>
+                <ul class="project-list">
+                    <li>Used Vehicles – UV</li>
+                    <li>SABER – CASO</li>
+                    <li>Certificate of Origin – COO / Global COO</li>
+                    <li>Vehicles Safety Center – VSC</li>
+                    <li>Saudi Halal Center</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="job-title">
+                    Senior QC Engineer – Thiqah Business Services
+                    <span class="date">Jul 2019 – Sep 2022</span>
+                </div>
+                <div class="muted">Ministry of Commerce – EPD / CCI <span class="badge">Senior</span></div>
+                <ul class="project-list">
+                    <li>Commercial Registration – EPD</li>
+                    <li>e‑Authentication for Partners</li>
+                    <li>Companies Operations & eCommerce CR</li>
+                    <li>GAZT Suspension Levels</li>
+                    <li>Company Contract – CCI & CCI Enhancements</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="job-title">
+                    Senior QA Engineer – Ministry of Justice
+                    <span class="date">Jan 2017 – Jun 2018</span>
+                </div>
+                <div class="muted">King Abdullah Project for the Development of the Judiciary</div>
+                <ul class="project-list">
+                    <li>Najiz Courts System & Courts Portal</li>
+                    <li>Najiz Labor</li>
+                    <li>Data Migration for 150+ Courts</li>
+                    <li>MOJ ↔ MCI Integration & MOJ ↔ MOI Integration</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="job-title">
+                    Senior QC Engineer – SWCC
+                    <span class="date">Jan 2015 – Jan 2017</span>
+                </div>
+                <div class="muted">Enterprise Planning & Operations</div>
+                <ul class="project-list">
+                    <li>OPS – Operational Planning System</li>
+                    <li>BPS – Business Planning System</li>
+                    <li>Bank Grantee & Housing Systems</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="job-title">
+                    QC Engineer – Arab Open University
+                    <span class="date">Jan 2013 – Dec 2014</span>
+                </div>
+                <div class="muted">Higher Education Systems</div>
+                <ul class="project-list">
+                    <li>AMS – Appointment Management System</li>
+                    <li>SRS – Student Registration System</li>
+                    <li>AOU Portal</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="job-title">
+                    SharePoint Specialist – Saudi Engineering Consultancy
+                    <span class="date">Jan 2012 – Jan 2013</span>
+                </div>
+                <div class="muted">SharePoint Farm Administration & Development</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="job-title">
+                    ASP.NET Web Developer – IS Dreams
+                    <span class="date">Dec 2010 – Dec 2011</span>
+                </div>
+                <div class="muted">Web Applications & Reservation Systems</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="job-title">
+                    Web Developer – ISI (Armed Forces)
+                    <span class="date">Apr 2009 – Oct 2010</span>
+                </div>
+                <div class="muted">Portals & Internal Web Applications</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="section">
+        <h2>Education</h2>
+        <p>
+            <strong>B.Sc. in Computer Science & Information Systems</strong> — Mansoura University, Egypt (2007)<br>
+            Graduation Project: E‑Learning Platform based on SOA Architecture — <strong>Grade: Excellent</strong>
+        </p>
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="section">
+        <h2>Professional Certifications & Accreditations</h2>
+
+        <h3>Quality Engineering & Automation</h3>
+        <ul>
+            <li>Gen AI & AI Agents for QA (2025)</li>
+            <li>Web Element Locator Strategies (2023)</li>
+            <li>Continuous Testing – Azure DevOps (2022)</li>
+            <li>API Test Automation – Postman (2022)</li>
+            <li>Test Automation Foundations (2022)</li>
+        </ul>
+
+        <h3>Agile & Delivery</h3>
+        <ul>
+            <li>Scrum Master Certification (2023)</li>
+            <li>Project Management Essentials (2022)</li>
+        </ul>
+
+        <h3>Core QA Accreditation</h3>
+        <ul>
+            <li>ISTQB Certified Tester – Foundation Level (CTFL) (2018)</li>
+        </ul>
+
+        <h3>Legacy Technical Certifications</h3>
+        <ul>
+            <li>MCSE / MCSA / MCP – SharePoint (2014)</li>
+            <li>MCPD – .NET 4.0 (2011)</li>
+            <li>OOP Specialist – IBM (2005)</li>
+        </ul>
+    </div>
+
+<!-- CONTACT & SOCIAL -->
+<section id="contact" class="bg-white shadow-md rounded-xl p-6">
+  <h2 class="text-2xl font-semibold border-l-4 border-blue-600 pl-3 mb-4">Contact & Social</h2>
+
+  <div class="contact-grid flex flex-wrap items-center gap-6">
+    <!-- Phones -->
+    <div class="contact-item flex items-center text-gray-800">
+      <span class="text-pink-600 text-xl mr-2">📞</span>
+      <span class="font-medium">+966547311096</span>
+      <span class="mx-2 text-gray-400">|</span>
+      <span class="font-medium">+201032396970</span>
+    </div>
+
+    <!-- Email -->
+    <div class="contact-item flex items-center text-gray-800">
+      <span class="text-indigo-600 text-xl mr-2">📧</span>
+      <span>hazemyousef5@gmail.com</span>
+    </div>
+
+    <!-- LinkedIn -->
+    <div class="contact-item flex items-center text-gray-800">
+      <span class="text-purple-600 text-xl mr-2">💼</span>
+      <a href="https://www.linkedin.com/in/hazemsoliman86" target="_blank" class="text-blue-600 hover:underline">
+        LinkedIn Profile
+      </a>
+    </div>
+
+    <!-- Location -->
+    <div class="contact-item flex items-center text-gray-800">
+      <span class="text-pink-600 text-xl mr-2">📍</span>
+      <span>Riyadh, Saudi Arabia</span>
+    </div>
+  </div>
+</section>
+
+
+
+
+<script>
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+    }
+
+    function downloadCV() {
+        // غيّر الاسم حسب ملف الـ PDF اللي هترفعه في نفس الـ Repo
+        window.open('Hazem-CV.pdf', '_blank');
+    }
+</script>
+
+</body>
+</html>
